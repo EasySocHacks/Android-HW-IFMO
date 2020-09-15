@@ -54,7 +54,7 @@ class EventHandler  {
                 MainActivity.inputField.text = MainActivity.inputField.text.substring(0, MainActivity.inputField.text.length - 1)
             }
 
-            moveHorizontalScrollBarToRight()
+            moveHorizontalScrollBarToRightWithDelay(35)
 
             Log.i(MainActivity.TAG, "Backspace character")
         }
@@ -98,7 +98,7 @@ class EventHandler  {
 
                 MainActivity.calculatorResult = BigDecimal.ZERO
 
-                moveHorizontalScrollBarToRight()
+                moveHorizontalScrollBarToRightWithDelay()
             } else {
                 MainActivity.lastOperationType = operationType
 
@@ -121,7 +121,7 @@ class EventHandler  {
 
             MainActivity.inputField.text = MainActivity.inputField.text.toString().plus(".")
 
-            moveHorizontalScrollBarToRight()
+            moveHorizontalScrollBarToRightWithDelay(0)
         }
 
         private fun onDigitButtonClickEvent(digitType: DigitType) {
@@ -131,7 +131,7 @@ class EventHandler  {
                 MainActivity.inputField.text = MainActivity.inputField.text.toString().plus(digitType.stringValue)
             }
 
-            moveHorizontalScrollBarToRight()
+            moveHorizontalScrollBarToRightWithDelay()
         }
 
         private fun doCalculate(
@@ -169,10 +169,11 @@ class EventHandler  {
             return stringForCheck.last() in '0' .. '9' || stringForCheck.last() == '.'
         }
 
-        private fun moveHorizontalScrollBarToRight() {
-            MainActivity.inputFieldScroll.post {
+        private fun moveHorizontalScrollBarToRightWithDelay(delay : Long = 0L) {
+            MainActivity.inputFieldScroll.postDelayed ({
                 MainActivity.inputFieldScroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
-            }
+            },
+            delay)
         }
     }
 }
