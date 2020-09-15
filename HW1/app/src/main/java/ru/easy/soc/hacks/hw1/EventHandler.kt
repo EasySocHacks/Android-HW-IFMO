@@ -54,7 +54,7 @@ class EventHandler  {
                 MainActivity.inputField.text = MainActivity.inputField.text.substring(0, MainActivity.inputField.text.length - 1)
             }
 
-            moveHorizontalScrollBarToRight() //TODO: why scroll to left?!?! LEAVE?
+            moveHorizontalScrollBarToRight()
 
             Log.i(MainActivity.TAG, "Backspace character")
         }
@@ -98,7 +98,7 @@ class EventHandler  {
 
                 MainActivity.calculatorResult = BigDecimal.ZERO
 
-                moveHorizontalScrollBarToRight() //TODO: why scroll to left?!?! LEAVE?
+                moveHorizontalScrollBarToRight()
             } else {
                 MainActivity.lastOperationType = operationType
 
@@ -144,7 +144,7 @@ class EventHandler  {
                 OperationType.MINUS -> (firstNumber - secondNumber).stripTrailingZeros()
                 OperationType.MULTIPLY -> (firstNumber * secondNumber).stripTrailingZeros()
                 OperationType.DIVIDE -> {
-                    if (secondNumber.stripTrailingZeros() == BigDecimal.ZERO) { //TODO: write "Error" and then check everywhere for "Error" string
+                    if (secondNumber.stripTrailingZeros() == BigDecimal.ZERO) {
                         BigDecimal.ZERO
                     } else {
                         (1.0.toBigDecimal() * firstNumber.divide(
