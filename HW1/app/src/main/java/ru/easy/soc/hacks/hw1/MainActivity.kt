@@ -13,38 +13,38 @@ class MainActivity : AppCompatActivity() {
     companion object {
         const val TAG = "HW1_Calculator"
 
-        lateinit var inputFieldScroll: HorizontalScrollView
-        lateinit var inputField: TextView
-
-        lateinit var clearAllButton: Button
-        lateinit var backspaceButton: Button
-        lateinit var plusButton: Button
-        lateinit var minusButton: Button
-        lateinit var multiplyButton: Button
-        lateinit var divideButton: Button
-        lateinit var changeNegationButton: Button
-        lateinit var dotButton: Button
-        lateinit var equalsButton: Button
-
-        lateinit var zeroButton: Button
-        lateinit var oneButton: Button
-        lateinit var twoButton: Button
-        lateinit var threeButton: Button
-        lateinit var fourButton: Button
-        lateinit var fiveButton: Button
-        lateinit var sixButton: Button
-        lateinit var sevenButton: Button
-        lateinit var eightButton: Button
-        lateinit var nineButton: Button
-
-        var calculatorResult = BigDecimal.ZERO
-
-        var lastOperationType = OperationType.NOTHING
-
         private const val CALCULATOR_RESULT_SAVING_INSTANCE_KEY = "CalculatorResult"
         private const val LAST_OPERATION_TYPE_SAVING_INSTANCE_KEY = "LastOperationType"
         private const val INPUT_FIELD_STRING_SAVING_INSTANCE_KEY = "InputFieldString"
     }
+
+    lateinit var inputFieldScroll: HorizontalScrollView
+    lateinit var inputField: TextView
+
+    lateinit var clearAllButton: Button
+    lateinit var backspaceButton: Button
+    lateinit var plusButton: Button
+    lateinit var minusButton: Button
+    lateinit var multiplyButton: Button
+    lateinit var divideButton: Button
+    lateinit var changeNegationButton: Button
+    lateinit var dotButton: Button
+    lateinit var equalsButton: Button
+
+    lateinit var zeroButton: Button
+    lateinit var oneButton: Button
+    lateinit var twoButton: Button
+    lateinit var threeButton: Button
+    lateinit var fourButton: Button
+    lateinit var fiveButton: Button
+    lateinit var sixButton: Button
+    lateinit var sevenButton: Button
+    lateinit var eightButton: Button
+    lateinit var nineButton: Button
+
+    var calculatorResult = BigDecimal.ZERO
+
+    var lastOperationType = OperationType.NOTHING
 
     override fun onCreate(savedInstanceState: Bundle?) {
         Log.i(TAG, "Called 'onCreate' method : processing")
@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.main_layout)
 
         initViews()
-        EventHandler.setButtonListeners()
+        EventHandler(this)
 
         Log.i(TAG, "Called 'onCreate' method : done")
     }

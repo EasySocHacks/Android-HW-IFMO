@@ -6,174 +6,180 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class EventHandler  {
-    companion object {
-        fun setButtonListeners() {
-            MainActivity.clearAllButton.setOnClickListener { onClearAllButtonClickEvent() }
-            MainActivity.backspaceButton.setOnClickListener { onBackspaceButtonClickEvent() }
+    private var mainActivity : MainActivity
 
-            MainActivity.plusButton.setOnClickListener { onOperationButtonClickEvent(OperationType.PLUS) }
-            MainActivity.minusButton.setOnClickListener { onOperationButtonClickEvent(OperationType.MINUS) }
-            MainActivity.multiplyButton.setOnClickListener {
-                onOperationButtonClickEvent(
-                    OperationType.MULTIPLY
-                )
-            }
-            MainActivity.divideButton.setOnClickListener { onOperationButtonClickEvent(OperationType.DIVIDE) }
-            MainActivity.changeNegationButton.setOnClickListener {
-                onOperationButtonClickEvent(
-                    OperationType.CHANGE_NEGATION
-                )
-            }
-            MainActivity.dotButton.setOnClickListener { onDotButtonClickEvent() }
-            MainActivity.equalsButton.setOnClickListener { onOperationButtonClickEvent(OperationType.EQUALS) }
+    constructor(mainActivity: MainActivity) {
+        this.mainActivity = mainActivity
 
-            MainActivity.zeroButton.setOnClickListener { onDigitButtonClickEvent(DigitType.ZERO) }
-            MainActivity.oneButton.setOnClickListener { onDigitButtonClickEvent(DigitType.ONE) }
-            MainActivity.twoButton.setOnClickListener { onDigitButtonClickEvent(DigitType.TWO) }
-            MainActivity.threeButton.setOnClickListener { onDigitButtonClickEvent(DigitType.THREE) }
-            MainActivity.fourButton.setOnClickListener { onDigitButtonClickEvent(DigitType.FOUR) }
-            MainActivity.fiveButton.setOnClickListener { onDigitButtonClickEvent(DigitType.FIVE) }
-            MainActivity.sixButton.setOnClickListener { onDigitButtonClickEvent(DigitType.SIX) }
-            MainActivity.sevenButton.setOnClickListener { onDigitButtonClickEvent(DigitType.SEVEN) }
-            MainActivity.eightButton.setOnClickListener { onDigitButtonClickEvent(DigitType.EIGHT) }
-            MainActivity.nineButton.setOnClickListener { onDigitButtonClickEvent(DigitType.NINE) }
+        setButtonListeners()
+    }
+
+    private fun setButtonListeners() {
+        mainActivity.clearAllButton.setOnClickListener { onClearAllButtonClickEvent() }
+        mainActivity.backspaceButton.setOnClickListener { onBackspaceButtonClickEvent() }
+
+        mainActivity.plusButton.setOnClickListener { onOperationButtonClickEvent(OperationType.PLUS) }
+        mainActivity.minusButton.setOnClickListener { onOperationButtonClickEvent(OperationType.MINUS) }
+        mainActivity.multiplyButton.setOnClickListener {
+            onOperationButtonClickEvent(
+                OperationType.MULTIPLY
+            )
+        }
+        mainActivity.divideButton.setOnClickListener { onOperationButtonClickEvent(OperationType.DIVIDE) }
+        mainActivity.changeNegationButton.setOnClickListener {
+            onOperationButtonClickEvent(
+                OperationType.CHANGE_NEGATION
+            )
+        }
+        mainActivity.dotButton.setOnClickListener { onDotButtonClickEvent() }
+        mainActivity.equalsButton.setOnClickListener { onOperationButtonClickEvent(OperationType.EQUALS) }
+
+        mainActivity.zeroButton.setOnClickListener { onDigitButtonClickEvent(DigitType.ZERO) }
+        mainActivity.oneButton.setOnClickListener { onDigitButtonClickEvent(DigitType.ONE) }
+        mainActivity.twoButton.setOnClickListener { onDigitButtonClickEvent(DigitType.TWO) }
+        mainActivity.threeButton.setOnClickListener { onDigitButtonClickEvent(DigitType.THREE) }
+        mainActivity.fourButton.setOnClickListener { onDigitButtonClickEvent(DigitType.FOUR) }
+        mainActivity.fiveButton.setOnClickListener { onDigitButtonClickEvent(DigitType.FIVE) }
+        mainActivity.sixButton.setOnClickListener { onDigitButtonClickEvent(DigitType.SIX) }
+        mainActivity.sevenButton.setOnClickListener { onDigitButtonClickEvent(DigitType.SEVEN) }
+        mainActivity.eightButton.setOnClickListener { onDigitButtonClickEvent(DigitType.EIGHT) }
+        mainActivity.nineButton.setOnClickListener { onDigitButtonClickEvent(DigitType.NINE) }
+    }
+
+    private fun onClearAllButtonClickEvent() {
+        mainActivity.inputField.text = "0"
+        mainActivity.lastOperationType = OperationType.NOTHING
+
+        mainActivity.calculatorResult = BigDecimal.ZERO
+
+        Log.i(MainActivity.TAG, "Clear all info")
+    }
+
+    private fun onBackspaceButtonClickEvent() {
+        if (mainActivity.inputField.text.length != 1 &&
+            !(mainActivity.inputField.text.length == 2 && mainActivity.inputField.text.first() == '-')) {
+            mainActivity.inputField.text = mainActivity.inputField.text.substring(0, mainActivity.inputField.text.length - 1)
         }
 
-        private fun onClearAllButtonClickEvent() {
-            MainActivity.inputField.text = "0"
-            MainActivity.lastOperationType = OperationType.NOTHING
+        moveHorizontalScrollBarToRightWithDelay(35)
 
-            MainActivity.calculatorResult = BigDecimal.ZERO
+        Log.i(MainActivity.TAG, "Backspace character")
+    }
 
-            Log.i(MainActivity.TAG, "Clear all info")
+    private fun onOperationButtonClickEvent(operationType: OperationType) {
+        if (operationType == OperationType.NOTHING) {
+            Log.wtf(
+                MainActivity.TAG,
+                "Unexpected operation $operationType occurred while processing button click event"
+            )
+            return
         }
 
-        private fun onBackspaceButtonClickEvent() {
-            if (MainActivity.inputField.text.length != 1 &&
-                !(MainActivity.inputField.text.length == 2 && MainActivity.inputField.text.first() == '-')) {
-                MainActivity.inputField.text = MainActivity.inputField.text.substring(0, MainActivity.inputField.text.length - 1)
-            }
-
-            moveHorizontalScrollBarToRightWithDelay(35)
-
-            Log.i(MainActivity.TAG, "Backspace character")
-        }
-
-        private fun onOperationButtonClickEvent(operationType: OperationType) {
-            if (operationType == OperationType.NOTHING) {
-                Log.wtf(
-                    MainActivity.TAG,
-                    "Unexpected operation $operationType occurred while processing button click event"
-                )
-                return
-            }
-
-            if (operationType == OperationType.CHANGE_NEGATION) {
-                if (isNumber(MainActivity.inputField.text)) {
-                    if (MainActivity.inputField.text.first() == '-') {
-                        MainActivity.inputField.text = MainActivity.inputField.text.substring(1)
-                    } else {
-                        MainActivity.inputField.text = "-".plus(MainActivity.inputField.text)
-                    }
-                }
-
-                return
-            }
-
-            if (MainActivity.lastOperationType == OperationType.NOTHING) {
-                MainActivity.calculatorResult = BigDecimal(MainActivity.inputField.text.toString())
-            } else {
-                if (isNumber(MainActivity.inputField.text)) {
-                    MainActivity.calculatorResult = doCalculate(
-                        MainActivity.calculatorResult, BigDecimal(
-                            MainActivity.inputField.text.toString()), MainActivity.lastOperationType
-                    )
+        if (operationType == OperationType.CHANGE_NEGATION) {
+            if (isNumber(mainActivity.inputField.text)) {
+                if (mainActivity.inputField.text.first() == '-') {
+                    mainActivity.inputField.text = mainActivity.inputField.text.substring(1)
+                } else {
+                    mainActivity.inputField.text = "-".plus(mainActivity.inputField.text)
                 }
             }
 
-            if (operationType == OperationType.EQUALS) {
-                MainActivity.lastOperationType = OperationType.NOTHING
-
-                MainActivity.inputField.text = MainActivity.calculatorResult.stripTrailingZeros().toPlainString()
-
-                MainActivity.calculatorResult = BigDecimal.ZERO
-
-                moveHorizontalScrollBarToRightWithDelay()
-            } else {
-                MainActivity.lastOperationType = operationType
-
-                MainActivity.inputField.text = operationType.stringValue
-            }
-
-            Log.i(MainActivity.TAG, "Pressed $operationType operation button")
+            return
         }
 
-        private fun onDotButtonClickEvent() {
-            for (inputFieldTextChar in MainActivity.inputField.text) {
-                if (inputFieldTextChar == '.') {
-                    return
-                }
+        if (mainActivity.lastOperationType == OperationType.NOTHING) {
+            mainActivity.calculatorResult = BigDecimal(mainActivity.inputField.text.toString())
+        } else {
+            if (isNumber(mainActivity.inputField.text)) {
+                mainActivity.calculatorResult = doCalculate(
+                    mainActivity.calculatorResult, BigDecimal(
+                        mainActivity.inputField.text.toString()), mainActivity.lastOperationType
+                )
             }
-
-            if (!isNumber(MainActivity.inputField.text)) {
-                return
-            }
-
-            MainActivity.inputField.text = MainActivity.inputField.text.toString().plus(".")
-
-            moveHorizontalScrollBarToRightWithDelay(0)
         }
 
-        private fun onDigitButtonClickEvent(digitType: DigitType) {
-            if (MainActivity.inputField.text.toString() == "0" || !isNumber(MainActivity.inputField.text)) {
-                MainActivity.inputField.text = digitType.stringValue
-            } else {
-                MainActivity.inputField.text = MainActivity.inputField.text.toString().plus(digitType.stringValue)
-            }
+        if (operationType == OperationType.EQUALS) {
+            mainActivity.lastOperationType = OperationType.NOTHING
+
+            mainActivity.inputField.text = mainActivity.calculatorResult.stripTrailingZeros().toPlainString()
+
+            mainActivity.calculatorResult = BigDecimal.ZERO
 
             moveHorizontalScrollBarToRightWithDelay()
+        } else {
+            mainActivity.lastOperationType = operationType
+
+            mainActivity.inputField.text = operationType.stringValue
         }
 
-        private fun doCalculate(
-            firstNumber: BigDecimal,
-            secondNumber: BigDecimal,
-            operationType: OperationType
-        ): BigDecimal {
-            return when (operationType) {
-                OperationType.PLUS -> (firstNumber + secondNumber).stripTrailingZeros()
-                OperationType.MINUS -> (firstNumber - secondNumber).stripTrailingZeros()
-                OperationType.MULTIPLY -> (firstNumber * secondNumber).stripTrailingZeros()
-                OperationType.DIVIDE -> {
-                    if (secondNumber.stripTrailingZeros() == BigDecimal.ZERO) {
-                        BigDecimal.ZERO
-                    } else {
-                        (1.0.toBigDecimal() * firstNumber.divide(
-                            secondNumber,
-                            10,
-                            RoundingMode.HALF_UP
-                        )).stripTrailingZeros()
-                    }
-                }
-                else -> {
-                    Log.wtf(
-                        MainActivity.TAG,
-                        "Unexpected operation type $operationType occurred while computing result"
-                    )
+        Log.i(MainActivity.TAG, "Pressed $operationType operation button")
+    }
 
-                    return BigDecimal.ZERO
-                }
+    private fun onDotButtonClickEvent() {
+        for (inputFieldTextChar in mainActivity.inputField.text) {
+            if (inputFieldTextChar == '.') {
+                return
             }
         }
 
-        private fun isNumber(stringForCheck : CharSequence) : Boolean {
-            return stringForCheck.last() in '0' .. '9' || stringForCheck.last() == '.'
+        if (!isNumber(mainActivity.inputField.text)) {
+            return
         }
 
-        private fun moveHorizontalScrollBarToRightWithDelay(delay : Long = 0L) {
-            MainActivity.inputFieldScroll.postDelayed ({
-                MainActivity.inputFieldScroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
-            },
-            delay)
+        mainActivity.inputField.text = mainActivity.inputField.text.toString().plus(".")
+
+        moveHorizontalScrollBarToRightWithDelay(0)
+    }
+
+    private fun onDigitButtonClickEvent(digitType: DigitType) {
+        if (mainActivity.inputField.text.toString() == "0" || !isNumber(mainActivity.inputField.text)) {
+            mainActivity.inputField.text = digitType.stringValue
+        } else {
+            mainActivity.inputField.text = mainActivity.inputField.text.toString().plus(digitType.stringValue)
         }
+
+        moveHorizontalScrollBarToRightWithDelay()
+    }
+
+    private fun doCalculate(
+        firstNumber: BigDecimal,
+        secondNumber: BigDecimal,
+        operationType: OperationType
+    ): BigDecimal {
+        return when (operationType) {
+            OperationType.PLUS -> (firstNumber + secondNumber).stripTrailingZeros()
+            OperationType.MINUS -> (firstNumber - secondNumber).stripTrailingZeros()
+            OperationType.MULTIPLY -> (firstNumber * secondNumber).stripTrailingZeros()
+            OperationType.DIVIDE -> {
+                if (secondNumber.stripTrailingZeros() == BigDecimal.ZERO) {
+                    BigDecimal.ZERO
+                } else {
+                    (1.0.toBigDecimal() * firstNumber.divide(
+                        secondNumber,
+                        10,
+                        RoundingMode.HALF_UP
+                    )).stripTrailingZeros()
+                }
+            }
+            else -> {
+                Log.wtf(
+                    MainActivity.TAG,
+                    "Unexpected operation type $operationType occurred while computing result"
+                )
+
+                return BigDecimal.ZERO
+            }
+        }
+    }
+
+    private fun isNumber(stringForCheck : CharSequence) : Boolean {
+        return stringForCheck.last() in '0' .. '9' || stringForCheck.last() == '.'
+    }
+
+    private fun moveHorizontalScrollBarToRightWithDelay(delay : Long = 0L) {
+        mainActivity.inputFieldScroll.postDelayed ({
+            mainActivity.inputFieldScroll.fullScroll(HorizontalScrollView.FOCUS_RIGHT)
+        },
+        delay)
     }
 }
