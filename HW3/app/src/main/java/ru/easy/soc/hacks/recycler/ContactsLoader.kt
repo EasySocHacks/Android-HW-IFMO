@@ -41,7 +41,6 @@ class ContactsLoader(private val mainActivity: MainActivity) {
                 arrayOf(requiredPermission),
                 requestReadContactsPermissionID)
         } else {
-            //TODO: LANGUAGE + ???
             val fetchedUsers = mainActivity.applicationContext.fetchAllContacts()
 
             userList.clear()

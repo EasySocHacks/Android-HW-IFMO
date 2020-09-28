@@ -45,7 +45,6 @@ class MainActivity : AppCompatActivity() {
 
                     contactsLoader.tryLoadContacts()
                 } else {
-                    //TODO: LANGUAGE + ???
                     Toast.makeText(
                         this@MainActivity,
                         "Please 'Apply' :(",
