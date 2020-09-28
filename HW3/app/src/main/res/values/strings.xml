@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Recycler</string>
+    <string name="addContactsButtonText">Add contacts</string>
+    <plurals name="contactsFoundPlural">
+        <item quantity="one">Found %d contact</item>
+        <item quantity="other">Found %d contacts</item>
+    </plurals>
+    <string name="pleaseApplyMessage">Please Apply :(</string>
+</resources>

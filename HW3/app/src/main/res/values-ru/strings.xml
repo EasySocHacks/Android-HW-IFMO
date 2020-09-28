@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Recycler</string>
+    <string name="addContactsButtonText">Добавить контакты</string>
+    <plurals name="contactsFoundPlural">
+        <item quantity="one">Найден %d контакт</item>
+        <item quantity="few">Найдено %d контакта</item>
+        <item quantity="many">Найдено %d контактов</item>
+    </plurals>
+    <string name="pleaseApplyMessage">Пожалуйста, согласитесь :(</string>
+</resources>
