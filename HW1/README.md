@@ -8,3 +8,6 @@ Make an calculator with any style, considering the following responsibilities an
 
 - Denied crashes
 - Denied standard phone keyboard
+
+Bonus:
+* Make result view scrollable
