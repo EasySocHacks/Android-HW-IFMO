@@ -1,0 +1,55 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryLightTheme</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDarkLightTheme</item>
+        <item name="colorAccent">@color/colorAccentLightTheme</item>
+        <item name="android:windowBackground">@color/colorAppBackgroundLightTheme</item>
+        <item name="android:textColor">@color/colorTextColorLightTheme</item>
+    </style>
+
+    <style name="todayWeatherAttributeTypeText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:background">@color/colorTodayWeatherAdditionsLightTheme</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginEnd">2dp</item>
+    </style>
+    
+    <style name="todayWeatherAttributeText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="otherDayWeatherTitleText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:background">@color/colorOtherDayWeatherLightTheme</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:layout_marginTop">7dp</item>
+        <item name="android:layout_marginStart">2dp</item>
+        <item name="android:layout_marginEnd">2dp</item>
+        <item name="android:layout_marginBottom">7dp</item>
+    </style>
+
+    <style name="otherDayWeatherText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="todayCityInfo">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:textSize">30sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+</resources>

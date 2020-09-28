@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">HW2</string>
+    <string name="weather_text">Weather</string>
+    <string name="weatherCityName">St. Petersburg</string>
+    <string name="todayWeatherText">-1000°C</string>
+    <string name="todayWeatherType">Cool</string>
+    <string name="todayDay">Sunday</string>
+    <string name="windPowerTitle">Wind Power</string>
+    <string name="windPowerValueText">0 m/s</string>
+    <string name="pressureTitle">Pressure</string>
+    <string name="pressureValueText">0 mmHg</string>
+    <string name="wetnessTitle">Wetness</string>
+    <string name="wetnessValueText">0 %</string>
+    <string name="inOneDayTitle">Monday</string>
+    <string name="inTwoDayTitle">Tuesday</string>
+    <string name="inThreeDayTitle">Wednesday</string>
+    <string name="inFourDayTitle">Thursday</string>
+    <string name="inFiveDayTitle">Friday</string>
+    <string name="inOneDayWeatherValueText">"0°C</string>
+    <string name="inTwoDayWeatherValueText">"0°C</string>
+    <string name="inThreeDayWeatherValueText">"0°C</string>
+    <string name="inFourDayWeatherValueText">"0°C</string>
+    <string name="inFiveDayWeatherValueText">"0°C</string>
+</resources>

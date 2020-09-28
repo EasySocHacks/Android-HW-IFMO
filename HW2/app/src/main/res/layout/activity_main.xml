@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/todayWeatherCityName"
+        style="@style/todayCityInfo"
+        android:gravity="bottom"
+        android:text="@string/weatherCityName"
+        app:layout_constraintBottom_toTopOf="@id/todayWeather"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_weight="0.7" />
+
+    <TextView
+        android:id="@+id/todayWeather"
+        style="@style/todayCityInfo"
+        android:text="@string/todayWeatherText"
+        android:textSize="25sp"
+        android:gravity="top"
+        app:layout_constraintBottom_toTopOf="@id/todayWeatherImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherCityName"
+        app:layout_constraintVertical_weight="0.5" />
+
+    <ImageView
+        android:id="@+id/todayWeatherImage"
+        style="@style/todayCityInfo"
+        android:src="@drawable/weather_winter"
+        app:layout_constraintBottom_toTopOf="@id/todayWeatherType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayWeather"
+        app:layout_constraintVertical_weight="1.4"
+        android:contentDescription="@string/todayWeatherType"/>
+
+    <TextView
+        android:id="@+id/todayWeatherType"
+        style="@style/todayCityInfo"
+        android:gravity="bottom"
+        android:text="@string/todayWeatherType"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@id/todayDayText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherImage"
+        app:layout_constraintVertical_weight="0.5" />
+
+    <TextView
+        android:id="@+id/todayDayText"
+        style="@style/todayCityInfo"
+        android:text="@string/todayDay"
+        android:gravity="top"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherType"
+        app:layout_constraintBottom_toTopOf="@id/spaceBetweenTodayDayAndTodayDatAttributes"
+        app:layout_constraintVertical_weight="0.7" />
+
+    <Space
+        android:id="@+id/spaceBetweenTodayDayAndTodayDatAttributes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/todayDayText"
+        app:layout_constraintBottom_toTopOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintVertical_weight="0"/>
+
+    <TextView
+        android:id="@+id/todayWeatherWindPowerTitle"
+        style="@style/todayWeatherAttributeTypeText"
+        android:text="@string/windPowerTitle"
+        app:layout_constraintBottom_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintEnd_toStartOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintTop_toTopOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/todayWeatherWindPower"
+        style="@style/todayWeatherAttributeText"
+        android:text="@string/windPowerValueText"
+        app:layout_constraintBottom_toBottomOf="@id/todayWeatherWindPowerTitle"
+        app:layout_constraintEnd_toEndOf="@id/todayWeatherWindPowerTitle"
+        app:layout_constraintStart_toStartOf="@id/todayWeatherWindPowerTitle" />
+
+    <TextView
+        android:id="@+id/todayWeatherPressureTitle"
+        style="@style/todayWeatherAttributeTypeText"
+        android:text="@string/pressureTitle"
+        app:layout_constraintVertical_weight="0.7"
+        app:layout_constraintBottom_toTopOf="@id/inThreeDayWeatherTitle"
+        app:layout_constraintEnd_toStartOf="@id/todayWeatherWetnessTitle"
+        app:layout_constraintStart_toEndOf="@id/todayWeatherWindPowerTitle"
+        app:layout_constraintTop_toTopOf="@id/spaceBetweenTodayDayAndTodayDatAttributes"/>
+
+    <TextView
+        android:id="@+id/todayWeatherPressure"
+        style="@style/todayWeatherAttributeText"
+        android:text="@string/pressureValueText"
+        app:layout_constraintBottom_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintEnd_toEndOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintStart_toStartOf="@id/todayWeatherPressureTitle" />
+
+    <TextView
+        android:id="@+id/todayWeatherWetnessTitle"
+        style="@style/todayWeatherAttributeTypeText"
+        android:text="@string/wetnessTitle"
+        app:layout_constraintBottom_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintTop_toTopOf="@id/todayWeatherPressureTitle"/>
+
+    <TextView
+        android:id="@+id/todayWeatherWetness"
+        style="@style/todayWeatherAttributeText"
+        android:text="@string/wetnessValueText"
+        app:layout_constraintBottom_toBottomOf="@id/todayWeatherWetnessTitle"
+        app:layout_constraintEnd_toEndOf="@id/todayWeatherWetnessTitle"
+        app:layout_constraintStart_toStartOf="@id/todayWeatherWetnessTitle" />
+
+    <TextView
+        android:id="@+id/inOneDayWeatherTitle"
+        style="@style/otherDayWeatherTitleText"
+        android:text="@string/inOneDayTitle"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/inTwoDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/inOneDayWeatherText"
+        style="@style/otherDayWeatherText"
+        android:text="@string/inOneDayWeatherValueText"
+        app:layout_constraintBottom_toBottomOf="@id/inOneDayWeatherTitle"
+        app:layout_constraintEnd_toEndOf="@id/inOneDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="@id/inOneDayWeatherTitle" />
+
+    <TextView
+        android:id="@+id/inTwoDayWeatherTitle"
+        style="@style/otherDayWeatherTitleText"
+        android:text="@string/inTwoDayTitle"
+        app:layout_constraintEnd_toStartOf="@id/inThreeDayWeatherTitle"
+        app:layout_constraintStart_toEndOf="@id/inOneDayWeatherTitle"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <TextView
+        android:id="@+id/inTwoDayWeatherText"
+        style="@style/otherDayWeatherText"
+        android:text="@string/inTwoDayWeatherValueText"
+        app:layout_constraintBottom_toBottomOf="@id/inTwoDayWeatherTitle"
+        app:layout_constraintEnd_toEndOf="@id/inTwoDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="@id/inTwoDayWeatherTitle" />
+
+    <TextView
+        android:id="@+id/inThreeDayWeatherTitle"
+        style="@style/otherDayWeatherTitleText"
+        android:text="@string/inThreeDayTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/inFourDayWeatherTitle"
+        app:layout_constraintStart_toEndOf="@id/inTwoDayWeatherTitle"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintVertical_weight="0.6"/>
+
+    <TextView
+        android:id="@+id/inThreeDayWeatherText"
+        style="@style/otherDayWeatherText"
+        android:text="@string/inThreeDayWeatherValueText"
+        app:layout_constraintBottom_toBottomOf="@id/inThreeDayWeatherTitle"
+        app:layout_constraintEnd_toEndOf="@id/inThreeDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="@id/inThreeDayWeatherTitle" />
+
+    <TextView
+        android:id="@+id/inFourDayWeatherTitle"
+        style="@style/otherDayWeatherTitleText"
+        android:text="@string/inFourDayTitle"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/inFiveDayWeatherTitle"
+        app:layout_constraintStart_toEndOf="@id/inThreeDayWeatherTitle"/>
+
+    <TextView
+        android:id="@+id/inFourDayWeatherText"
+        style="@style/otherDayWeatherText"
+        android:text="@string/inFourDayWeatherValueText"
+        app:layout_constraintBottom_toBottomOf="@id/inFourDayWeatherTitle"
+        app:layout_constraintEnd_toEndOf="@id/inFourDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="@id/inFourDayWeatherTitle" />
+
+    <TextView
+        android:id="@+id/inFiveDayWeatherTitle"
+        style="@style/otherDayWeatherTitleText"
+        android:text="@string/inFiveDayTitle"
+        app:layout_constraintTop_toBottomOf="@id/todayWeatherPressureTitle"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/inFourDayWeatherTitle"/>
+
+    <TextView
+        android:id="@+id/inFiveDayWeatherText"
+        style="@style/otherDayWeatherText"
+        android:text="@string/inFiveDayWeatherValueText"
+        app:layout_constraintBottom_toBottomOf="@id/inFiveDayWeatherTitle"
+        app:layout_constraintEnd_toEndOf="@id/inFiveDayWeatherTitle"
+        app:layout_constraintStart_toStartOf="@id/inFiveDayWeatherTitle" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

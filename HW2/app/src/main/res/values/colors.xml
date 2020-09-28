@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimaryLightTheme">#B3CED4</color>
+    <color name="colorPrimaryDarkLightTheme">#E5E8F7</color>
+    <color name="colorAccentLightTheme">#F2E5F7</color>
+    <color name="colorTodayWeatherAdditionsLightTheme">#E9F9FD</color>
+    <color name="colorOtherDayWeatherLightTheme">#E5F4F7</color>
+    <color name="colorAppBackgroundLightTheme">#CCF3FC</color>
+    <color name="colorTextColorLightTheme">#000000</color>
+</resources>
