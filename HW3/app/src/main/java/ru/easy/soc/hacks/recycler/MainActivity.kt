@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -12,12 +13,16 @@ import kotlinx.android.synthetic.main.activity_main.*
 lateinit var eventHandler: EventHandler
 lateinit var contactsLoader: ContactsLoader
 
+private val USER_SAVING_INSTANCE_STRING = "userList"
+
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        userList.clear()
+        if (!userList.isEmpty()) {
+            addContactsButton.visibility = View.INVISIBLE
+        }
 
         val viewManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)
@@ -52,5 +57,17 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putSerializable(USER_SAVING_INSTANCE_STRING, userList)
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        userList = savedInstanceState.getSerializable(USER_SAVING_INSTANCE_STRING) as ArrayList<User>
     }
 }
