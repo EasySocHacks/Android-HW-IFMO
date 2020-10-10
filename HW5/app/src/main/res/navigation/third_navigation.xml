@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/third_navigation"
+    app:startDestination="@id/thirdFragment">
+
+    <fragment
+        android:id="@+id/thirdFragment"
+        android:name="ru.easy.soc.hacks.hw5.fragments.ThirdFragment"
+        android:label="ThirdFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_thirdFragment_self"
+            app:destination="@id/thirdFragment" />
+        <argument
+            android:name="count"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+</navigation>

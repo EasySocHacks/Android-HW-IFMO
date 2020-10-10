@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/second_navigation"
+    app:startDestination="@id/secondFragment">
+
+    <fragment
+        android:id="@+id/secondFragment"
+        android:name="ru.easy.soc.hacks.hw5.fragments.SecondFragment"
+        android:label="SecondFragment"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_secondFragment_self"
+            app:destination="@id/secondFragment" />
+        <argument
+            android:name="count"
+            app:argType="integer"
+            android:defaultValue="0"/>
+    </fragment>
+</navigation>
