@@ -1,18 +1,18 @@
 package ru.easy.soc.hacks.hw4
 
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
+import android.os.Build
 import android.os.IBinder
-import androidx.core.app.NotificationCompat
 import com.google.gson.JsonParser
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.URL
+
 
 class PhotoLoaderService() : Service() {
     override fun onBind(intent: Intent): IBinder? {
@@ -20,16 +20,35 @@ class PhotoLoaderService() : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        PhotoListLoader().execute("https://api.unsplash.com/photos/random?count=50&client_id=_-bRC2rJB_5K5Sj0PRh3BCa3oqfSL98Xi5AbboHUicg")
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val notificationChannel = NotificationChannel("ChannelID",
+                    "Foreground notification",
+                    NotificationManager.IMPORTANCE_DEFAULT)
+            (getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager).
+            createNotificationChannel(notificationChannel)
+        }
 
-        startForeground(0,
-            NotificationCompat.Builder(this, Context.ACTIVITY_SERVICE).
-            setContentTitle("Content Title").
-            setContentText("Content Text").
-            build()
-        )
+        val intent1 = Intent(this, MainActivity().javaClass)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent1,  0)
 
-        return START_REDELIVER_INTENT
+        val notification = Notification.Builder(this, "ChannelID")
+            .setContentTitle("An unsplash.com photo list")
+            .setContentText("downloading photos")
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentIntent(pendingIntent).build()
+
+        startForeground(1, notification)
+
+        PhotoListLoader().execute(
+            "https://api.unsplash.com/photos/random?count=30&client_id=_-bRC2rJB_5K5Sj0PRh3BCa3oqfSL98Xi5AbboHUicg")
+
+        return START_NOT_STICKY
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        stopForeground(true)
     }
 }
 

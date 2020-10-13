@@ -1,13 +1,10 @@
 package ru.easy.soc.hacks.hw4
 
 import android.content.Intent
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import androidx.core.view.get
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.easy.soc.hacks.recycler.PhotoAdapter
 
@@ -35,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         if (photoList.isEmpty()) {
-            val intent = Intent(this, PhotoLoaderService :: class.java)
+            intent = Intent(this, PhotoLoaderService :: class.java)
             startService(intent)
         }
     }
