@@ -71,12 +71,12 @@ class PhotoListLoader(): AsyncTask<String, Unit, Unit>() {
             }
 
             var thumbImageUrl = URL(g[i].asJsonObject["urls"].asJsonObject["thumb"].asString)
-            val rawImageUrl = URL(g[i].asJsonObject["urls"].asJsonObject["regular"].asString)
+            val regularImageUrl = URL(g[i].asJsonObject["urls"].asJsonObject["regular"].asString)
 
             val thumbBitmap = BitmapFactory.decodeStream(thumbImageUrl.openConnection().getInputStream())
-            val rawBitmap = BitmapFactory.decodeStream(rawImageUrl.openConnection().getInputStream())
+            val regularBitmap = BitmapFactory.decodeStream(regularImageUrl.openConnection().getInputStream())
 
-            photoList.add(Photo(BitmapDrawable(thumbBitmap), BitmapDrawable(rawBitmap), description))
+            photoList.add(Photo(i, BitmapDrawable(thumbBitmap), BitmapDrawable(regularBitmap), description))
 
             publishProgress()
         }

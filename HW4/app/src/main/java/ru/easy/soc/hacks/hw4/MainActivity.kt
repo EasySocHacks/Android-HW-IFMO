@@ -9,11 +9,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 import ru.easy.soc.hacks.recycler.PhotoAdapter
 
 class MainActivity : AppCompatActivity() {
+    private val SAVED_BITMAP_KEY = "CurrentBitmap"
+    private var currentOpenPhoto : Int = -1
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        showingImage.visibility = View.INVISIBLE
+        if (savedInstanceState != null) {
+            onRestoreInstanceState(savedInstanceState)
+        }
+
+        if (currentOpenPhoto == -1) {
+            showingImage.visibility = View.INVISIBLE
+        } else {
+            showingImage.setImageDrawable(photoList[currentOpenPhoto].regularDrawable)
+            showingImage.visibility = View.VISIBLE
+        }
 
         recyclerViewImpl = recyclerView
 
@@ -22,19 +34,33 @@ class MainActivity : AppCompatActivity() {
         recyclerView.apply {
             layoutManager = viewManager
             adapter = PhotoAdapter(photoList) {
-                showingImage.setImageDrawable(it.rawDrawable)
+                showingImage.setImageDrawable(it.regularDrawable)
                 showingImage.visibility = View.VISIBLE
+                currentOpenPhoto = it.id
             }
         }
 
         showingImage.setOnClickListener {
             it.visibility = View.INVISIBLE
+            currentOpenPhoto = -1
         }
 
         if (photoList.isEmpty()) {
             intent = Intent(this, PhotoLoaderService :: class.java)
             startService(intent)
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putInt(SAVED_BITMAP_KEY, currentOpenPhoto)
+
+        super.onSaveInstanceState(outState)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+
+        currentOpenPhoto = savedInstanceState.getInt(SAVED_BITMAP_KEY)
     }
 }
 
