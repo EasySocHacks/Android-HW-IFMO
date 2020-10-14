@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import ru.easy.soc.hacks.recycler.PhotoAdapter
+import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
     private val SAVED_BITMAP_KEY = "CurrentBitmap"
@@ -27,7 +28,7 @@ class MainActivity : AppCompatActivity() {
             showingImage.visibility = View.VISIBLE
         }
 
-        recyclerViewImpl = recyclerView
+        recyclerViewImpl = WeakReference(recyclerView)
 
         val viewManager = LinearLayoutManager(this)
         recyclerView.setHasFixedSize(true)

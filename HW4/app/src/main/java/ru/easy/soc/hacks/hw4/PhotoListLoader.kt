@@ -8,6 +8,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.os.AsyncTask
 import android.os.Build
 import android.os.IBinder
+import androidx.core.app.NotificationCompat
 import com.google.gson.JsonParser
 import java.io.BufferedReader
 import java.io.InputStreamReader
@@ -31,7 +32,7 @@ class PhotoLoaderService() : Service() {
         val intent1 = Intent(this, MainActivity().javaClass)
         val pendingIntent = PendingIntent.getActivity(this, 0, intent1,  0)
 
-        val notification = Notification.Builder(this, "ChannelID")
+        val notification = NotificationCompat.Builder(this, "ChannelID")
             .setContentTitle("An unsplash.com photo list")
             .setContentText("downloading photos")
             .setSmallIcon(R.drawable.ic_launcher_foreground)
@@ -83,6 +84,6 @@ class PhotoListLoader(): AsyncTask<String, Unit, Unit>() {
     }
 
     override fun onProgressUpdate(vararg values: Unit?) {
-        recyclerViewImpl?.adapter?.notifyDataSetChanged()
+        recyclerViewImpl?.get()?.adapter?.notifyDataSetChanged()
     }
 }
