@@ -29,7 +29,9 @@ import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.NavHostFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import ru.easy.soc.hacks.hw5.MainActivity
 import ru.easy.soc.hacks.hw5.R
+import ru.easy.soc.hacks.hw5.selectedBottomNavigationIdemId
 
 /**
  * Manages the various graphs needed for a [BottomNavigationView].
@@ -97,6 +99,8 @@ fun BottomNavigationView.setupWithNavController(
 
     // When a navigation item is selected
     setOnNavigationItemSelectedListener { item ->
+        selectedBottomNavigationIdemId = item.itemId
+
         // Don't do anything if the state is state has already been saved.
         if (fragmentManager.isStateSaved) {
             false
