@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">HW7</string>
+    <string name="failureLoadListMessage">Failure</string>
+    <string name="tryAgainMessage">try again</string>
+    <string name="deletePostText">-</string>
+    <string name="addPostText">+</string>
+</resources>
