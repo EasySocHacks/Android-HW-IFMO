@@ -20,24 +20,32 @@ import java.lang.ref.WeakReference
 
 class MainActivity : AppCompatActivity() {
     private var getPostListCall : Call<List<Post>>? = null
-    private var requestCount = 0
+    private var addPostCall : Call<Post>? = null
+    private var removePostCall : Call<Void>? = null
+
+    companion object {
+        lateinit var instance : MainActivity
+            private set
+
+        private val retrofit = Retrofit.Builder().
+        baseUrl("https://jsonplaceholder.typicode.com/").
+        addConverterFactory(MoshiConverterFactory.create()).
+        build()
+
+        private val postService = retrofit.create(PostService::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        instance = this
+
         setContentView(R.layout.activity_main)
 
         val propertyAnimation = PropertyAnimation(animatedCircle_1, animatedCircle_2, animatedCircle_3)
         propertyAnimation.startAnimation()
 
-        val retrofit = Retrofit.Builder().
-        baseUrl("https://jsonplaceholder.typicode.com/").
-        addConverterFactory(MoshiConverterFactory.create()).
-        build()
-
-        val postService = retrofit.create(PostService::class.java)
-
         addPostButton.setOnClickListener {
-            callAddPost(postService)
+            callAddPost()
         }
 
         if (postList.get() != null && postList.get()!!.isNotEmpty()) {
@@ -47,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             recyclerView.apply {
                 layoutManager = viewManager
                 adapter = PostAdapter(postList.get()!!) {
-                    callRemovePost(postService, it)
+                    callRemovePost(it)
                 }
             }
 
@@ -57,14 +65,31 @@ class MainActivity : AppCompatActivity() {
         } else {
             showLoadingAnimation()
 
-            callGetPostList(postService)
+            callGetPostList()
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
+        cancelGetPostListCall()
+        cancelAddPostCall()
+        cancelRemovePostCall()
+    }
+
+    private fun cancelGetPostListCall() {
         getPostListCall?.cancel()
         getPostListCall = null
+    }
+
+    private fun cancelAddPostCall() {
+        addPostCall?.cancel()
+        addPostCall = null
+    }
+
+    private fun cancelRemovePostCall() {
+        removePostCall?.cancel()
+        removePostCall = null
     }
 
     private fun hildeLoadingAnimation() {
@@ -79,7 +104,7 @@ class MainActivity : AppCompatActivity() {
         animatedCircle_3.visibility = View.VISIBLE
     }
 
-    private fun callGetPostList(postService: PostService) {
+    private fun callGetPostList() {
         getPostListCall = postService.getPostList()
 
         getPostListCall?.enqueue(object : Callback<List<Post>> {
@@ -92,7 +117,7 @@ class MainActivity : AppCompatActivity() {
                 recyclerView.apply {
                     layoutManager = viewManager
                     adapter = PostAdapter(postList.get()!!) {
-                        callRemovePost(postService, it)
+                        callRemovePost(it)
                     }
                 }
 
@@ -120,16 +145,13 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun callRemovePost(postService : PostService, id : Int) {
-        if (requestCount == 0) {
-            showLoadingAnimation()
-        }
+    private fun callRemovePost(id : Int) {
+        cancelRemovePostCall()
+        showLoadingAnimation()
 
-        requestCount++
+        removePostCall = postService.deletePost(id)
 
-        val removePostCall = postService.deletePost(id)
-
-        removePostCall.enqueue(object : Callback<Void> {
+        removePostCall!!.enqueue(object : Callback<Void> {
             override fun onResponse(call: Call<Void>, response: Response<Void>) {
                 Toast.makeText(
                     applicationContext,
@@ -138,11 +160,7 @@ class MainActivity : AppCompatActivity() {
 
                 hildeLoadingAnimation()
 
-                requestCount--
-
-                if (requestCount == 0) {
-                    hildeLoadingAnimation()
-                }
+                hildeLoadingAnimation()
             }
 
             override fun onFailure(call: Call<Void>, t: Throwable) {
@@ -153,21 +171,14 @@ class MainActivity : AppCompatActivity() {
 
                 hildeLoadingAnimation()
 
-                requestCount--
-
-                if (requestCount == 0) {
-                    hildeLoadingAnimation()
-                }
+                hildeLoadingAnimation()
             }
         })
     }
 
-    private fun callAddPost(postService: PostService) {
-        if (requestCount == 0) {
-            showLoadingAnimation()
-        }
-
-        requestCount++
+    private fun callAddPost() {
+        cancelAddPostCall()
+        showLoadingAnimation()
 
         val newPost = Post(postList.get()!!.size, 1, "Title", "Body")
 
@@ -179,11 +190,7 @@ class MainActivity : AppCompatActivity() {
                     "Code: " + response.code().toString() + " " + response.message(),
                     Toast.LENGTH_SHORT).show()
 
-                requestCount--
-
-                if (requestCount == 0) {
-                    hildeLoadingAnimation()
-                }
+                hildeLoadingAnimation()
             }
 
             override fun onFailure(call: Call<Post>, t: Throwable) {
@@ -194,11 +201,7 @@ class MainActivity : AppCompatActivity() {
 
                 hildeLoadingAnimation()
 
-                requestCount--
-
-                if (requestCount == 0) {
-                    hildeLoadingAnimation()
-                }
+                hildeLoadingAnimation()
             }
         })
     }
