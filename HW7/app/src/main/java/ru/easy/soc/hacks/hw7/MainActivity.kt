@@ -180,7 +180,7 @@ class MainActivity : AppCompatActivity() {
         cancelAddPostCall()
         showLoadingAnimation()
 
-        val newPost = Post(postList.get()!!.size, 1, "Title", "Body")
+        val newPost = Post(1, "Title", "Body")
 
         val createPostCall = postService.createPost(newPost)
         createPostCall.enqueue(object : Callback<Post> {
