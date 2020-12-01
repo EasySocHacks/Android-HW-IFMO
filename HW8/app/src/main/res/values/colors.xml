@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#6200EE</color>
+    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorAccent">#03DAC5</color>
+    <color name="animatedCircleColor">#D0E45271</color>
+    <color name="cardViewColor">#EEEEEE</color>
+    <color name="failureLoadListMessageColor">#FF0000</color>
+    <color name="tryAgainColor">#B60202</color>
+    <color name="deletePostTextColor">#000000</color>
+    <color name="deletePostBackgroundColor">#B0C3C3C3</color>
+    <color name="addPostBackgroundColor">#16B9E0</color>
+    <color name="refreshButtonBackgroundColor">#C16BFF</color>
+</resources>

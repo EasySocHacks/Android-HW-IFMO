@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">hw8</string>
+    <string name="failureLoadListMessage">Failure</string>
+    <string name="tryAgainMessage">try again</string>
+    <string name="deletePostText">-</string>
+    <string name="addPostText">+</string>
+    <string name="refreshButtonText">Refresh</string>
+</resources>
