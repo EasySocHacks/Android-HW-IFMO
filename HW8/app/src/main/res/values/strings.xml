@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hw8</string>
+    <string name="app_name">Posts simulator</string>
     <string name="failureLoadListMessage">Failure</string>
     <string name="tryAgainMessage">try again</string>
     <string name="deletePostText">-</string>
